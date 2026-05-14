@@ -23,7 +23,7 @@ class HookRegistry:
         if hook_point not in self._hooks:
             raise ValueError(f"Unknown hook point: {hook_point}, valid: {list(self._hooks.keys())}")
         self._hooks[hook_point].append(fn)
-        logger.info("Hook registered: %s", hook_point)
+        logger.info("Hook registered: %s -> %s", hook_point, getattr(fn, '__qualname__', repr(fn)))
 
     def fire(self, hook_point: str, *args, **kwargs) -> Any:
         if hook_point not in self._hooks:
@@ -34,7 +34,8 @@ class HookRegistry:
             try:
                 result = fn(*args, **kwargs)
             except Exception as e:
-                logger.warning("Hook %s handler %s failed: %s", hook_point, fn.__name__, e)
+                fn_name = getattr(fn, '__qualname__', repr(fn))
+                logger.warning("Hook %s handler %s failed: %s", hook_point, fn_name, e)
         return result
 
 

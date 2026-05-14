@@ -13,6 +13,8 @@ from .hooks import HOOKS
 
 logger = logging.getLogger("resume-editor.coordinator")
 
+_FALLBACK_PLAN: list[dict] = [{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}]
+
 
 class Coordinator:
     """Agent loop: plan -> execute subagents -> emit events."""
@@ -32,7 +34,7 @@ class Coordinator:
 Given the user's resume, job description, and goal, select which subagents to run and in what order. Only include relevant ones.
 
 Respond with JSON only:
-{{"steps": [{{"id": "gap_analysis", "name": "差距分析", "icon": "\U0001f4ca", "deps": []}}], "reasoning": "..."}}"""
+{{"steps": [{{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}}], "reasoning": "..."}}"""
 
         prompt = f"Resume length: {len(resume_text)} chars, JD length: {len(jd_text)} chars"
         if goal:
@@ -53,7 +55,7 @@ Respond with JSON only:
         except Exception as e:
             logger.error("Planning API call failed: %s", str(e)[:200])
             # Fallback: default plan with gap_analysis
-            return [{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}]
+            return _FALLBACK_PLAN
 
         text = ""
         for block in resp.content:
@@ -62,15 +64,15 @@ Respond with JSON only:
 
         match = re.search(r'\{.*\}', text, re.DOTALL)
         if not match:
-            return [{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}]
+            return _FALLBACK_PLAN
 
         try:
             data = json.loads(match.group())
             return data.get("steps", [{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}])
         except (json.JSONDecodeError, KeyError):
-            return [{"id": "gap_analysis", "name": "差距分析", "icon": "📊", "deps": []}]
+            return _FALLBACK_PLAN
 
-    async def execute(self, steps: list[dict], resume_text: str, jd_text: str, goal: str = ""):
+    async def execute(self, steps: list[dict], resume_text: str, jd_text: str, goal: str = "") -> AsyncIterator[dict]:
         """Execute plan steps, yielding events. Run this as an async generator."""
         cache = {
             "resume_text": resume_text,
@@ -126,5 +128,6 @@ Respond with JSON only:
 
             yield {"type": "step_done", "step_id": step["id"], "duration_ms": int(duration * 1000)}
 
-        HOOKS.fire("on_all_done", cache, {})
+        completed = [s["id"] for s in steps]
+        HOOKS.fire("on_all_done", cache, {"completed_steps": completed})
         yield {"type": "all_done", "results": {k: v for k, v in cache.items() if isinstance(v, dict)}}

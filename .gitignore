@@ -216,6 +216,7 @@ __marimo__/
 
 # Web app
 web/node_modules/
+resume-editor-agent/frontend/node_modules/
 web/.next/
 web/out/
 .vercel
@@ -225,3 +226,6 @@ test_providers.py
 # Internal analysis artifacts (not learning material)
 analysis/
 analysis_progress.md
+
+# Visual companion brainstorm artifacts
+.superpowers/

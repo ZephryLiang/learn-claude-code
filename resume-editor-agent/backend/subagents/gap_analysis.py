@@ -1,7 +1,13 @@
 """Gap analysis subagent — compares resume against job description."""
 from __future__ import annotations
+import os
+import logging
+
+from anthropic import AsyncAnthropic
 
 from ..subagent import SubagentDef, StreamCallback
+
+logger = logging.getLogger("resume-editor.gap_analysis")
 
 
 class GapAnalysisSubagent(SubagentDef):
@@ -24,17 +30,22 @@ class GapAnalysisSubagent(SubagentDef):
         feedback: str | None = None,
         previous_result: dict | None = None,
     ) -> dict:
-        from anthropic import AsyncAnthropic
-        import os
-
         resume = inputs.get("resume_text", "")
         jd = inputs.get("jd_text", "")
+
+        if not resume.strip() or not jd.strip():
+            raise ValueError("resume_text and jd_text are required and must not be empty")
+
+        model_id = os.getenv("MODEL_ID", "").strip()
+        if not model_id:
+            raise RuntimeError("MODEL_ID is not set in environment")
 
         system = "You are a professional resume consultant. Analyze gaps between resume and JD."
         if feedback:
             system += f"\n\nUser feedback (re-analyze with this context): {feedback}"
         if previous_result:
-            system += f"\n\nPrevious result for reference: {previous_result.get('text', '')[:1000]}"
+            prev_text = (previous_result.get("text") or "")[:1000]
+            system += f"\n\nPrevious result for reference: {prev_text}"
 
         prompt = f"""Analyze the gap between this resume and the job description.
 
@@ -56,12 +67,17 @@ Provide a structured analysis:
             base_url=os.getenv("ANTHROPIC_BASE_URL", "https://api.anthropic.com"),
         )
 
-        resp = await client.messages.create(
-            model=os.getenv("MODEL_ID", ""),
-            system=system,
-            messages=[{"role": "user", "content": prompt}],
-            max_tokens=8192,
-        )
+        try:
+            resp = await client.messages.create(
+                model=model_id,
+                system=system,
+                messages=[{"role": "user", "content": prompt}],
+                max_tokens=8192,
+            )
+        except Exception as e:
+            msg = str(e)[:200]
+            logger.error("API call failed: model=%s error=%s", model_id, msg)
+            raise RuntimeError(f"Anthropic API call failed: {msg}") from e
 
         text = ""
         thinking = ""

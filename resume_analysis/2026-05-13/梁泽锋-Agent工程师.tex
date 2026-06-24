@@ -1,0 +1,86 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage[UTF8, fontset=fandol]{ctex}
+\usepackage[margin=0.5in]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\definecolor{accent}{HTML}{2B7A78}
+\definecolor{gray}{HTML}{555555}
+
+\titleformat{\section}{\large\bfseries\color{accent}}{}{0em}{}[\vspace{-0.3em}\rule{\textwidth}{0.5pt}\vspace{-0.15em}]
+\titlespacing{\section}{0em}{0.5em}{0.2em}
+
+\setlist{nosep, leftmargin=1.2em, label=\textcolor{accent}{\small$\bullet$}, before=\vspace{0em}, after=\vspace{0em}}
+
+\newcommand{\entry}[3]{
+  \vspace{0.3em}
+  \noindent\textbf{#1} \hfill {\color{gray}\small #2 $\mid$ #3}\newline
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries 梁泽锋}\\[0.15em]
+  {\small (+86) 195-2299-8848 \quad \href{mailto:zephliang00@gmail.com}{zephliang00@gmail.com}}
+\end{center}
+
+\section{个人总结}
+AI 应用工程师。从零构建基于 Function Calling 的 Agent 推理流水线，覆盖 Tool Registry 注册调度、多步推理链路、自动纠错与重试降级。具备多轮 Context 管理、RAG-based Schema Grounding、LoRA 微调与模型评估经验。后端背景扎实，涉及大规模异步任务编排、高可用架构和 Prometheus/Kafka/ELK 全链路可观测基础设施。日常使用 Python / Go。
+
+\section{教育经历}
+\noindent 天津师范大学 \hfill 2018.09 -- 2022.06\\
+软件工程 \quad 学士
+
+\section{技术能力}
+\begin{itemize}
+  \item \textbf{Agent 架构}：Agent Loop / Function Calling / Tool Calling、Tool Registry、多轮 Context 管理、Tool 权限管控
+  \item \textbf{LLM 工程}：RAG（FAISS / Milvus）、Prompt Engineering、LoRA 微调、模型评估流水线、Text-to-SQL
+  \item \textbf{并发与调度}：Python 异步任务编排、工作流状态机、分布式调度、超时重试与降级策略
+  \item \textbf{可观测性}：Prometheus / Kafka / ELK、指标监控与告警管道、异常检测
+  \item \textbf{基础设施}：Kubernetes / Docker / KVM、GPU 资源调度、RESTful API
+\end{itemize}
+
+\section{工作经历}
+
+\entry{杭州字景数科}{AI 应用工程师}{2024.05 -- 2025.08}
+\begin{itemize}
+  \item \textbf{Agent Loop 与 Tool 调度}：基于 LangChain 构建 Function Calling Agent 推理流水线，设计 Tool Registry 注册机制，通过 RAG (FAISS) 进行 Schema Grounding 获取上下文，动态调用数据库执行工具完成多步推理，SQL 执行失败时触发自动纠错与重试降级
+  \item \textbf{多轮 Context 管理}：实现 Token 窗口裁剪与关键信息持久化，通过 Workflow 编排策略维持 Agent 在复杂推理链路中的上下文一致性，减少用户澄清轮次
+  \item \textbf{安全治理}：对 Tool 调用实现执行前权限校验，拦截危险 SQL (DROP/DELETE/TRUNCATE) 并记录审计日志，不同运行模式绑定不同 Tool 可用集合
+  \item \textbf{模型微调与评估}：LoRA 微调 CodeLlama-13B，构建自动化评估流水线分级衡量查询准确率，将多表 SQL 执行准确率从 33\% 提升至 77\%
+\end{itemize}
+
+\entry{北京首都在线}{后端工程师}{2022.05 -- 2024.04}
+\begin{itemize}
+  \item \textbf{并发任务编排}：设计高并发异步任务编排系统，管理 ECS 实例创建、调度、销毁全生命周期——调度模型与 Agent Tool 并发调度同构（异步分发 $\to$ 状态追踪 $\to$ 结果收集 $\to$ 异常兜底）
+  \item \textbf{高可用与降级}：实现超时重试与熔断降级策略，主导生产故障应急响应，保障系统 99.9\% 可用性
+  \item \textbf{全链路可观测}：基于 Prometheus + Kafka + ELK 搭建指标监控、日志聚合与分级告警体系——该架构成熟后可平移至 Agent 行为监控场景
+  \item \textbf{异构资源调度}：集成 KVM / Docker / GPU 等异构计算资源，通过异步任务队列管理云主机全生命周期
+\end{itemize}
+
+\section{项目经历}
+
+\entry{Text-to-SQL LLM Agent 微调与评估}{}{2024.05 -- 2025.08}
+\begin{itemize}
+  \item 基于 Spider 数据集构建 Text-to-SQL 微调流水线，使用 CodeLlama-13B 和 LoRA 进行参数高效微调
+  \item 按 Easy / Medium / Hard 查询层级使用执行准确率评估模型性能，定位模型在复杂查询上的能力边界
+  \item 优化数据库 schema 表示与 Prompt 设计，通过超参数调优（LoRA rank、学习率）分析性能权衡
+\end{itemize}
+
+\entry{企业 GPU 云服务平台}{}{2022.07 -- 2024.04}
+\begin{itemize}
+  \item 开发并维护 SaaS GPU 云主机后台服务，使用 Python + uwsgi.spool 实现异步任务调度
+  \item 集成异构资源（KVM 虚拟机、存储、网络、GPU），确保快速可靠的实例启动
+  \item 担任生产故障首席响应人，跨团队协调减少客户影响
+\end{itemize}
+
+\entry{跨区域生产监控与告警}{}{2022.05 -- 2022.07}
+\begin{itemize}
+  \item 构建基于 Kafka 的事件处理管道，处理指标与日志生成告警，支持限频、分级、隔离恢复的多级告警
+  \item 构建基于 Prometheus 的指标可视化管道，搭建 ELK 集中化日志架构
+\end{itemize}
+
+\end{document}

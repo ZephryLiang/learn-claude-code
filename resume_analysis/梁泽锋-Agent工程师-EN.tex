@@ -1,0 +1,110 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[margin=0.55in]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+
+\titleformat{\section}
+  {\normalsize\bfseries}
+  {}{0em}{}
+  [\vspace{-0.4em}\rule{\textwidth}{0.4pt}\vspace{0.2em}]
+\titlespacing{\section}{0em}{0.8em}{0.3em}
+
+\setlist{
+  nosep,
+  leftmargin=1.5em,
+  label=\textbullet,
+  before=\vspace{0.1em},
+  after=\vspace{0.1em}
+}
+
+\newcommand{\entry}[2]{
+  \vspace{0.4em}
+  \noindent\textbf{#1} \hfill \small #2
+  \vspace{0.15em}\newline
+}
+
+\begin{document}
+
+% ── Header ──
+\begin{center}
+  {\Large\bfseries Zefeng Liang}\\[0.12em]
+  {\small | +86 195-2299-8848 | \href{mailto:zephliang00@gmail.com}{zephliang00@gmail.com} | Target Role: AI Agent Engineer |}
+\end{center}
+
+\vspace{0.2em}
+
+% ── Summary ──
+\noindent\textbf{AI Agent Engineer} with a full-stack background spanning infrastructure, LLM applications, and Agent harness design. Delivered an enterprise \textbf{Text-to-SQL Agent} system at ZijingShuke---from model fine-tuning through production-grade harness engineering (structured error recovery, permission pipeline, context compression, observability). Previously designed large-scale async orchestration and full-stack observability (Prometheus/Kafka/ELK) at Capital Online. Core strength: understanding every seam in the Agent harness architecture, backed by infrastructure reliability experience (99.9\% SLA).
+
+% ── Skills ──
+\section{SKILLS}
+
+\noindent\textbf{Languages:} Python, Go
+
+\noindent\textbf{Agent Architecture:} Agent Loop, Tool Calling, Structured Error Recovery (5-class taxonomy + per-class recovery), Permission Pipeline (4-stage + circuit-breaker), Context Compression (3-layer: Summary $\to$ On-demand DDL $\to$ Compaction), Multi-step Planning (Task Graph + Dependency Resolution), Cross-session Memory (4-type layered + MEMORY.md), Hook System (PreToolUse/PostToolUse), Observability (Trace/Metrics)
+
+\noindent\textbf{LLM Engineering:} RAG (FAISS/Milvus), LoRA Fine-tuning (CodeLlama-13B), Prompt Engineering, Text-to-SQL, Execution Accuracy Evaluation
+
+\noindent\textbf{Infrastructure:} Prometheus, Kafka, ELK, Kubernetes, Docker, Async Task Orchestration, Circuit Breaker
+
+\noindent\textbf{English:} IELTS Writing 6.0, Reading 7.0 (Overall 6.0)
+
+% ── Professional Experience ──
+\section{PROFESSIONAL EXPERIENCE}
+
+\entry{Hangzhou ZijingShuke Technology Co., Ltd. \textbar{} AI Application Engineer}{May 2024 -- Aug 2025}
+\begin{itemize}
+  \item \textbf{Agent Loop \& Structured Error Recovery}: Designed and implemented the Agent Loop with 5-class SQL error taxonomy (syntax/timeout/table not found/permission denied/empty result), each mapped to a distinct recovery strategy. Reduced tool-call failure rate from $\sim$15\% to $\sim$3\%
+
+  \item \textbf{Permission Pipeline}: Implemented 4-stage SQL permission gate (Regex Denylist $\to$ Mode Check $\to$ Table Allowlist $\to$ Human-in-the-loop). Non-SELECT operations denied by default; 3 consecutive denials trigger automatic read-only lockdown
+
+  \item \textbf{Observability \& Data-Driven Optimization}: Built Trace (per-request full-link spans) and Metrics (per-error-type aggregation). Metrics revealed 40\% of query failures from column-name ambiguity in schema grounding; optimized schema compression, reducing error rate by 25\%
+
+  \item \textbf{Context Compression}: Designed 3-layer schema management (Table Summary $\to$ On-demand DDL $\to$ History Compaction), controlling 50+ table prompts within $\sim$4K tokens---60\% reduction vs. RAG-only approach
+
+  \item \textbf{Multi-step Planning \& Cross-session Memory}: Built task-graph planning engine---complex queries auto-decomposed into 3--5 step SQL pipelines, failed steps retry in isolation. Introduced 4-type layered memory for cross-session query pattern reuse
+
+  \item \textbf{Dual-Model Architecture \& Fine-tuning}: General-purpose LLM for Agent orchestration + CodeLlama-13B (Spider dataset, LoRA rank=16) specialized for SQL generation. Multi-table SQL accuracy improved from 33\% to 77\%. RAG-based Schema Grounding (FAISS) reduced column hallucination
+\end{itemize}
+
+\entry{Capital Online (ShouZai Online) \textbar{} Backend Engineer}{May 2022 -- Apr 2024}
+\begin{itemize}
+  \item \textbf{Async Orchestration}: Decomposed user cloud instance configurations (specs, GPU, disks, network, image) into async task chains with dependency ordering (e.g., create instance $\to$ attach disks $\to$ assign IP). Each task tracked execution state independently; callback handlers chained state transitions between tasks; event state updated upon full completion for ops visibility. Covered full instance lifecycle (create/start/stop/restart/terminate/reinstall/resize), storage (attach/detach/expand/snapshot/backup), networking (IP/security group/VPC/bandwidth), and physical machine cold/hot migration
+
+  \item \textbf{Telemetry \& Logging Infrastructure}: Built full-stack observability with Prometheus (metrics), Kafka (event pipeline), and ELK (centralized logging), monitoring async task execution states, underlying API call latency, and failure rates. Designed multi-level alerting (throttling, escalation, isolation recovery) enabling cross-team incident investigation without direct server access
+
+  \item \textbf{Fault Isolation \& Recovery}: Underlying systems were black-box APIs---failure diagnosis first classified root cause (parameter error vs. platform limitation vs. resource shortage). Parameter errors triggered automatic correction and retry; platform limitations escalated to the owning team. Served as first responder for production incidents, maintaining 99.9\% SLA
+\end{itemize}
+
+% ── Project Experience ──
+\section{PROJECT EXPERIENCE}
+
+\entry{Text2SQL Agent \textbar{} ZijingShuke}{May 2024 -- Aug 2025}
+\begin{itemize}
+  \item Injected strategies at three Agent Loop seams (before LLM call, before tool execution, after tool result)---permission checks, error classification, context compaction, and memory updates all registered as Hook Pipeline plugins with zero main-loop modification
+
+  \item Implemented Hook System (PreToolUse/PostToolUse/SessionStart) with 3-state exit code contract (0=continue, 1=block, 2=inject context). Built 3-layer Context Compression (Summary $\to$ On-demand DDL $\to$ Compaction) with tiktoken-based token budget control, and 4-type layered Memory system with MEMORY.md indexing for session-start injection
+
+  \item Built Task Graph planning engine---dependency graph resolution (blockedBy/blocks), parallel step dispatch (ThreadPoolExecutor), isolated step retry (failed steps retry without re-running completed ones)
+\end{itemize}
+
+\vspace{0.3em}
+
+\entry{Cloud Infrastructure Platform \textbar{} Capital Online}{May 2022 -- Apr 2024}
+\begin{itemize}
+  \item \textbf{Async Task Orchestration Engine}: Built async task queue on uWSGI spooler---spool directory file persistence ensured zero task loss, Worker Pool consumed tasks concurrently, callback handlers chained state transitions, event state updated once all child tasks completed. Dispatch pipeline: parse config $\to$ decompose into task chain (dependencies/ordering) $\to$ spool enqueue $\to$ concurrent dispatch $\to$ poll underlying API status $\to$ aggregate event result
+
+  \item \textbf{Monitoring \& Logging Pipeline}: Built FELK log pipeline (Filebeat $\to$ Logstash $\to$ Elasticsearch $\to$ Kibana) for centralized server logging, enabling cross-team investigation without direct server access. Built custom Prometheus Exporter for business metrics, Kafka as real-time metrics buffer (leveraging update/delete/commit offset semantics), Prometheus scrape $\to$ AlertManager triggering alerts. Alert strategies (throttling, escalation, isolation recovery) implemented at the business layer. Grafana for performance dashboards, Kibana for log dashboards---clean separation of concerns
+\end{itemize}
+
+% ── Education ──
+\section{EDUCATION}
+
+\noindent\textbf{Tianjin Normal University} \hfill Jun 2018 -- Jun 2022\\
+Bachelor of Engineering, Software Engineering
+
+\end{document}

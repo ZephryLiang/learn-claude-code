@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 interface Props {
   stepId: string;
@@ -11,6 +11,11 @@ interface Props {
 export default function InterceptInput({ stepId, stepName, onSubmit }: Props) {
   const [value, setValue] = useState("");
   const [sent, setSent] = useState(false);
+  const timerRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
+
+  useEffect(() => {
+    return () => clearTimeout(timerRef.current);
+  }, []);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -18,7 +23,8 @@ export default function InterceptInput({ stepId, stepName, onSubmit }: Props) {
     onSubmit(stepId, value.trim());
     setValue("");
     setSent(true);
-    setTimeout(() => setSent(false), 3000);
+    clearTimeout(timerRef.current);
+    timerRef.current = setTimeout(() => setSent(false), 3000);
   };
 
   return (

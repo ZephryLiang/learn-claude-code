@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import InterceptInput from "./InterceptInput";
 
 export interface StepState {
   id: string;
@@ -17,7 +16,6 @@ interface Props {
   thinking: Record<string, string>;
   activeTab: string | null;
   onStepClick: (stepId: string) => void;
-  onIntercept: (stepId: string, feedback: string) => void;
 }
 
 const STATUS_ICONS: Record<string, string> = {
@@ -34,7 +32,6 @@ export default function PlanTimeline({
   thinking,
   activeTab,
   onStepClick,
-  onIntercept,
 }: Props) {
   const timelineRef = useRef<HTMLDivElement>(null);
 
@@ -54,7 +51,6 @@ export default function PlanTimeline({
 
       {steps.map((step, idx) => {
         const isActive = activeTab === step.id;
-        const hasResult = !!results[step.id];
 
         return (
           <div key={step.id} className="bg-card border border-border rounded-lg overflow-hidden">
@@ -90,16 +86,6 @@ export default function PlanTimeline({
               </div>
             </div>
 
-            {/* Expandable detail */}
-            {isActive && hasResult && (
-              <div className="px-4 pb-4">
-                <InterceptInput
-                  stepId={step.id}
-                  stepName={step.name}
-                  onSubmit={onIntercept}
-                />
-              </div>
-            )}
           </div>
         );
       })}

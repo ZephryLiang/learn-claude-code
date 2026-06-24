@@ -1,0 +1,48 @@
+梁泽锴
+联系方式: zephyr.liang@email.com | 电话: 138-0000-0000
+GitHub: github.com/zephyrliang
+
+教育背景
+计算机科学与技术 硕士 | 某某大学 | 2019 - 2022
+计算机科学与技术 学士 | 某某大学 | 2015 - 2019
+
+工作经历
+
+高级后端工程师 | ABC科技有限公司 | 2022 - 至今
+- 负责公司核心交易系统的架构设计与开发，日处理订单量 100万+
+- 使用 Python/FastAPI 重构了原有单体架构，拆分为微服务架构，系统响应时间降低 60%
+- 设计并实现了分布式任务调度系统，支持 10万+ 定时任务并发执行
+- 引入 Redis 缓存层，数据库查询负载降低 70%
+- 搭建了基于 ELK 的日志监控系统，实现服务异常自动告警
+- 主导了团队从 GitFlow 到 Trunk-Based Development 的转型，发布效率提升 3 倍
+
+后端开发工程师 | XYZ科技有限公司 | 2020 - 2022
+- 使用 Go 语言开发高并发消息推送系统，日推送量 500万+
+- 参与数据库设计，使用 MySQL + MongoDB 存储用户数据
+- 使用 Docker + Kubernetes 部署微服务，实现自动扩缩容
+- 编写单元测试和集成测试，代码覆盖率保持 85% 以上
+
+技术栈
+- 编程语言: Python, Go, TypeScript, JavaScript
+- 后端框架: FastAPI, Gin, Express.js
+- 数据库: PostgreSQL, MySQL, MongoDB, Redis
+- 消息队列: RabbitMQ, Kafka
+- 容器化: Docker, Kubernetes
+- 云服务: AWS (EC2, S3, RDS, Lambda)
+
+项目经历
+
+AI 智能客服系统 | 技术负责人 | 2023
+- 基于 LLM 构建智能客服系统，回答准确率 92%
+- 使用 RAG 架构，结合企业知识库提供精准回答
+- 日处理用户咨询 5000+，人工客服工作量降低 40%
+
+开源贡献
+- 贡献过 FastAPI 官方文档中文翻译
+- 维护 3 个 GitHub 开源项目，累计 Star 2000+
+
+技能
+- 精通 Python/Go 后端开发
+- 熟悉微服务架构设计与分布式系统
+- 了解 LLM 应用开发与 RAG 架构
+- 良好的团队协作与代码审查习惯

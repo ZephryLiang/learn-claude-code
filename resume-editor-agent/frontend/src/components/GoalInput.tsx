@@ -9,7 +9,7 @@ export default function GoalInput({ onSubmit, disabled }: Props) {
   return (
     <div className="space-y-2">
       <label className="text-sm font-medium text-foreground block">
-        目标（可选）
+        🎯 你的求职目标是什么？
       </label>
       <form
         onSubmit={(e) => {

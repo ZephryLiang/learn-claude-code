@@ -1,0 +1,119 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-05-14T00:00:00.000Z",
+  "title": "Design System: Resume AI Editor",
+  "extensions": {
+    "colorMeta": {
+      "primary": { "role": "primary", "displayName": "Viridian", "canonical": "oklch(58% 0.16 165)", "tonalRamp": ["oklch(30% 0.12 165)", "oklch(40% 0.14 165)", "oklch(50% 0.15 165)", "oklch(58% 0.16 165)", "oklch(65% 0.15 165)", "oklch(72% 0.12 165)", "oklch(80% 0.08 165)", "oklch(90% 0.04 165)"] },
+      "primary-hover": { "role": "primary", "displayName": "Viridian Deep", "canonical": "oklch(50% 0.15 165)", "tonalRamp": [] },
+      "primary-muted": { "role": "primary", "displayName": "Viridian Glow", "canonical": "oklch(70% 0.10 155 / 0.15)", "tonalRamp": [] },
+      "neutral-bg": { "role": "neutral", "displayName": "Workshop Floor", "canonical": "oklch(14% 0.005 160)", "tonalRamp": [] },
+      "neutral-surface": { "role": "neutral", "displayName": "Workbench", "canonical": "oklch(18% 0.006 160)", "tonalRamp": [] },
+      "neutral-raised": { "role": "neutral", "displayName": "Raised Surface", "canonical": "oklch(21% 0.008 160)", "tonalRamp": [] },
+      "neutral-border": { "role": "neutral", "displayName": "Edge", "canonical": "oklch(27% 0.008 160)", "tonalRamp": [] },
+      "neutral-text": { "role": "neutral", "displayName": "Bright", "canonical": "oklch(88% 0.005 160)", "tonalRamp": [] },
+      "neutral-muted": { "role": "neutral", "displayName": "Silver", "canonical": "oklch(65% 0.008 160)", "tonalRamp": [] },
+      "neutral-dim": { "role": "neutral", "displayName": "Steel", "canonical": "oklch(45% 0.006 160)", "tonalRamp": [] },
+      "danger": { "role": "danger", "displayName": "Danger", "canonical": "oklch(58% 0.18 25)", "tonalRamp": [] },
+      "warning": { "role": "warning", "displayName": "Warning", "canonical": "oklch(68% 0.14 85)", "tonalRamp": [] },
+      "info": { "role": "info", "displayName": "Info", "canonical": "oklch(60% 0.12 255)", "tonalRamp": [] }
+    },
+    "typographyMeta": {
+      "body": { "displayName": "Body", "purpose": "Primary reading and content text." },
+      "code": { "displayName": "Code", "purpose": "LaTeX source, error messages, structured output." },
+      "label": { "displayName": "Label", "purpose": "Small labels, tab text, metadata, button text." }
+    },
+    "shadows": [
+      { "name": "modal-overlay", "value": "0 16px 48px oklch(0% 0 0 / 0.4)", "purpose": "Modal dialogs and dropdown menus." },
+      { "name": "hover-lift", "value": "0 2px 8px oklch(0% 0 0 / 0.2)", "purpose": "Optional micro-lift on clickable cards." }
+    ],
+    "motion": [
+      { "name": "ease-standard", "value": "cubic-bezier(0.25, 0.1, 0.25, 1)", "purpose": "Default easing for state transitions." },
+      { "name": "duration-fast", "value": "150ms", "purpose": "Hover and state transitions." },
+      { "name": "duration-normal", "value": "250ms", "purpose": "Panel transitions and visibility toggles." }
+    ],
+    "breakpoints": [
+      { "name": "sm", "value": "640px" },
+      { "name": "md", "value": "768px" },
+      { "name": "lg", "value": "1024px" },
+      { "name": "xl", "value": "1280px" }
+    ]
+  },
+  "components": [
+    {
+      "name": "Primary Button",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Primary action button. Use for compile, submit, confirm.",
+      "html": "<button class=\"ds-btn-primary\">编译 PDF</button>",
+      "css": ".ds-btn-primary { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 16px; background: #2b7a4b; color: #fff; font-family: 'Inter','SF Pro',sans-serif; font-size: 13px; font-weight: 500; letter-spacing: 0.01em; border: none; border-radius: 6px; cursor: pointer; transition: background 150ms cubic-bezier(0.25,0.1,0.25,1), transform 150ms cubic-bezier(0.25,0.1,0.25,1); } .ds-btn-primary:hover { background: #23663e; } .ds-btn-primary:active { transform: scale(0.97); } .ds-btn-primary:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }"
+    },
+    {
+      "name": "Ghost Button",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Secondary/ghost button for toolbar items and secondary actions.",
+      "html": "<button class=\"ds-btn-ghost\">上传简历</button>",
+      "css": ".ds-btn-ghost { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px; background: transparent; color: oklch(65% 0.008 160); font-family: 'Inter','SF Pro',sans-serif; font-size: 12px; font-weight: 500; border: none; border-radius: 6px; cursor: pointer; transition: background 150ms, color 150ms; } .ds-btn-ghost:hover { background: oklch(21% 0.008 160); color: oklch(88% 0.005 160); }"
+    },
+    {
+      "name": "Text Input",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Text input for model ID, API key, URL fields.",
+      "html": "<input class=\"ds-input\" placeholder=\"sk-...\" type=\"password\">",
+      "css": ".ds-input { width: 100%; height: 32px; padding: 0 12px; background: oklch(18% 0.006 160); color: oklch(88% 0.005 160); font-family: 'Inter','SF Pro',sans-serif; font-size: 13px; border: 1px solid oklch(27% 0.008 160); border-radius: 6px; outline: none; transition: border-color 150ms; } .ds-input:focus { border-color: oklch(58% 0.16 165); } .ds-input::placeholder { color: oklch(45% 0.006 160); }"
+    },
+    {
+      "name": "Card Container",
+      "kind": "card",
+      "refersTo": "card",
+      "description": "Content card for results, analysis output.",
+      "html": "<div class=\"ds-card\"><p style=\"color:oklch(88% 0.005 160);font-size:13px;margin:0\">分析结果将显示在这里</p></div>",
+      "css": ".ds-card { background: oklch(21% 0.008 160); border: 1px solid oklch(27% 0.008 160); border-radius: 6px; padding: 12px; }"
+    },
+    {
+      "name": "Tab",
+      "kind": "nav",
+      "refersTo": "tab",
+      "description": "Tab bar item for the right panel navigation.",
+      "html": "<div style=\"display:flex;gap:0;border-bottom:1px solid oklch(27% 0.008 160)\"><button class=\"ds-tab ds-tab-active\">PDF 预览</button><button class=\"ds-tab\">JD 分析</button><button class=\"ds-tab\">评估</button></div>",
+      "css": ".ds-tab { height: 40px; padding: 0 12px; background: transparent; color: oklch(45% 0.006 160); font-family: 'Inter','SF Pro',sans-serif; font-size: 12px; font-weight: 500; letter-spacing: 0.02em; border: none; border-bottom: 2px solid transparent; cursor: pointer; transition: color 150ms, border-color 150ms; white-space: nowrap; } .ds-tab:hover { color: oklch(65% 0.008 160); } .ds-tab-active { color: oklch(88% 0.005 160); border-bottom-color: #2b7a4b; }"
+    }
+  ],
+  "narrative": {
+    "northStar": "The Nail",
+    "overview": "A precision tool for career craftsmanship. Every pixel is deliberate, every interaction purposeful — like a master tradesperson reaching for the right tool. The workspace is dark, focused, and unintimidating: a dim workshop where the task at hand is the only thing that matters.",
+    "keyCharacteristics": [
+      "Dark-anchored but warm — Deep surfaces with subtle green tint, not pure gray",
+      "Typographic hierarchy — Small but mighty: compact UI with clear size/weight contrast",
+      "Intentional color — Green as a signal of action and growth, used sparingly for maximum impact",
+      "Precision spacing — Tight rhythm with deliberate breathing room between sections",
+      "Substance over chrome — No decorative gradients, no glass effects, no gratuitous animation"
+    ],
+    "rules": [
+      { "name": "The Rarity Rule", "body": "Primary green appears on ≤15% of any given screen. Its scarcity is what makes it read as a signal. If everything is green, nothing is.", "section": "colors" },
+      { "name": "The 12px Shelf", "body": "Labels and tabs sit at 12px. Body text at 14px. These two sizes carry 90% of the UI. The jump from 12→14 with a weight shift provides clear hierarchy without a sprawling scale.", "section": "typography" },
+      { "name": "The Flat-By-Default Rule", "body": "Surfaces at rest are flat. Shadows appear only for transient states (hover, focus, modal). If a surface needs to stand out, lighten its background — don't throw a shadow on it.", "section": "elevation" },
+      { "name": "The 32px Rhythm", "body": "Buttons, input fields, dropdown items, and tab bar all share a 32px height. The consistency makes the UI feel engineered rather than assembled.", "section": "components" }
+    ],
+    "dos": [
+      "Do use Viridian green sparingly (≤15% per screen) — its rarity signals action and focus.",
+      "Do use tonal layering (lightness steps) over shadows for surface hierarchy.",
+      "Do keep buttons at 32px height with consistent padding — the '32px Rhythm' rule.",
+      "Do use 12px labels with uppercase + letter-spacing for navigation and metadata hierarchy.",
+      "Do show AI reasoning — the '知其所以然' principle means outputs must explain why.",
+      "Do tint neutrals toward green (chroma 0.005–0.008) even when they look gray."
+    ],
+    "donts": [
+      "Don't use dated enterprise patterns — heavy borders, cluttered toolbars, gray table stripes.",
+      "Don't use over-minimalist 'SaaS template' tropes — giant hero metrics, generic gradients, Inter-default with no character.",
+      "Don't use cookie-cutter AI aesthetics — purple gradients, glassmorphism, sparkle icons, neon on black.",
+      "Don't use side-stripe borders (border-left > 1px as a colored accent on cards or list items).",
+      "Don't animate CSS layout properties (width, height, top, left, margin, padding).",
+      "Don't use pure #000 or #fff — tint every dark/light extreme toward the brand hue.",
+      "Don't wrap everything in a container card — nested cards are always wrong.",
+      "Don't default to a modal — exhaust inline and progressive disclosure alternatives first."
+    ]
+  }
+}

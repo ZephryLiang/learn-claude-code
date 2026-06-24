@@ -1,10 +1,11 @@
-const BASE = "http://localhost:8001";
+const BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8001";
 
 /** Stream agent execution via SSE. Calls onEvent for each event. */
 export async function startAgentRun(
   resumeText: string,
   jdText: string,
   goal: string,
+  modelId: string,
   onEvent: (event: MessageEvent) => void,
   signal?: AbortSignal,
 ): Promise<void> {
@@ -12,6 +13,7 @@ export async function startAgentRun(
   fd.append("resume_text", resumeText);
   fd.append("jd_text", jdText);
   fd.append("goal", goal);
+  fd.append("model_id", modelId);
 
   const res = await fetch(`${BASE}/api/agent`, { method: "POST", body: fd, signal });
   if (!res.ok) throw new Error("Agent run failed");
@@ -79,4 +81,16 @@ export async function sendIntercept(
       }
     }
   }
+}
+
+export interface ModelOption {
+  id: string;
+  name: string;
+}
+
+export async function fetchModels(): Promise<ModelOption[]> {
+  const res = await fetch(`${BASE}/api/models`);
+  if (!res.ok) throw new Error("Failed to fetch models");
+  const data = await res.json();
+  return data.models;
 }

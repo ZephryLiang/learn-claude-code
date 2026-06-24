@@ -1,0 +1,39 @@
+{
+  "steps": [
+    {
+      "id": "gap_analysis",
+      "name": "Gap Analysis",
+      "icon": "🔍",
+      "deps": []
+    },
+    {
+      "id": "assessment",
+      "name": "Assessment",
+      "icon": "📊",
+      "deps": []
+    },
+    {
+      "id": "company_analysis",
+      "name": "Company Analysis",
+      "icon": "🏢",
+      "deps": []
+    },
+    {
+      "id": "remediation",
+      "name": "Remediation",
+      "icon": "🛠️",
+      "deps": [
+        "gap_analysis"
+      ]
+    },
+    {
+      "id": "rewrite",
+      "name": "Rewrite",
+      "icon": "✍️",
+      "deps": [
+        "gap_analysis",
+        "assessment"
+      ]
+    }
+  ]
+}

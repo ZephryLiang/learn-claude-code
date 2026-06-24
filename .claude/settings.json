@@ -1,0 +1,35 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\" \"https://github.com/openai/openai-agents-python\" --max-time 15)",
+      "Bash(curl -sL -o /dev/null -w \"autogen team-orch: %{http_code}\\\\n\" \"https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/team-orchestration.html\")",
+      "Bash(curl -sL -o /dev/null -w \"autogen team-orch v2: %{http_code}\\\\n\" \"https://microsoft.github.io/autogen/dev/user-guide/core-user-guide/design-patterns/team-orchestration.html\")",
+      "Bash(curl -sL -o /dev/null -w \"autogen design patterns: %{http_code}\\\\n\" \"https://microsoft.github.io/autogen/stable/user-guide/core-user-guide/design-patterns/\")",
+      "Bash(curl -sL -o /dev/null -w \"send api: %{http_code}\\\\n\" \"https://langchain-ai.github.io/langgraph/how-tos/send/\")",
+      "Bash(curl -sL -o /dev/null -w \"cookbook: %{http_code}\\\\n\" \"https://cookbook.openai.com/examples/orchestrating_agents\")",
+      "Bash(curl -sL -o /dev/null -w \"send api v2: %{http_code}\\\\n\" \"https://langchain-ai.github.io/langgraph/concepts/send/\")",
+      "Bash(curl -sL -o /dev/null -w \"send api v3: %{http_code}\\\\n\" \"https://langchain-ai.github.io/langgraph/concepts/low_level/#send\")",
+      "Bash(curl -sL -o /dev/null -w \"langgraph how-tos: %{http_code}\\\\n\" \"https://langchain-ai.github.io/langgraph/how-tos/\")",
+      "Bash(curl -sL -o /dev/null -w \"cookbook github: %{http_code}\\\\n\" \"https://github.com/openai/openai-cookbook/blob/main/examples/orchestrating_agents.ipynb\")",
+      "Bash(curl -sL -o /dev/null -w \"cookbook raw: %{http_code}\\\\n\" \"https://raw.githubusercontent.com/openai/openai-cookbook/main/examples/orchestrating_agents.md\")",
+      "Bash(curl -sL -o /dev/null -w \"awstip alt: %{http_code}\\\\n\" \"https://medium.com/@awstip/inside-autogen-chapter-9-core-design-patterns-1-762e9dd89616\")",
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\\\\n\" \"https://github.com/openai/openai-cookbook/blob/main/examples/orchestrating_agents.ipynb\")",
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\\\\n\" \"https://github.com/openai/openai-cookbook\")",
+      "Bash(curl -sL -o /dev/null -w \"%{http_code}\\\\n\" \"https://www.anthropic.com/engineering\")",
+      "WebSearch",
+      "Bash(python3 -c ' *)",
+      "Bash(find /Users/zephyr -maxdepth 4 -type d -name \"resume-editor\" 2>/dev/null | head -10)",
+      "Read(//Users/zephyr/**)",
+      "Bash(python main.py)",
+      "Bash(npm run *)",
+      "Bash(open http://localhost:3000)",
+      "Bash(open http://localhost:3002)",
+      "Bash(mkdir -p /Users/zephyr/anaconda_projects/learn-claude-code/.vscode)",
+      "Bash(tectonic \"梁泽锋-Agent工程师-EN.tex\")",
+      "Bash(git -C /Users/zephyr/anaconda_projects/learn-claude-code log --oneline -20)"
+    ],
+    "additionalDirectories": [
+      "/Users/zephyr/anaconda_projects/learn-claude-code"
+    ]
+  }
+}

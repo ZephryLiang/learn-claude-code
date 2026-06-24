@@ -1,0 +1,98 @@
+\documentclass[10pt, a4paper]{article}
+
+\usepackage[UTF8, fontset=fandol]{ctex}
+\usepackage[margin=0.55in]{geometry}
+\usepackage{enumitem}
+\usepackage[hidelinks]{hyperref}
+\usepackage{titlesec}
+\usepackage{xcolor}
+
+\definecolor{heading}{HTML}{2C3E50}
+\definecolor{accent}{HTML}{2B7A78}
+\definecolor{lightgray}{HTML}{888888}
+
+\titleformat{\section}{\large\bfseries\color{heading}}{}{0em}{}[\vspace{-0.3em}\rule{\textwidth}{0.4pt}\vspace{0.1em}]
+\titlespacing{\section}{0em}{0.6em}{0.2em}
+
+\setlist{nosep, leftmargin=1.2em, label=\textcolor{accent}{\small\textbullet}, before=\vspace{0em}, after=\vspace{0em}}
+
+\newcommand{\entry}[2]{
+  \vspace{0.35em}
+  \noindent\textbf{#1} \hfill {\color{lightgray}\small #2}\newline
+}
+
+\begin{document}
+
+\begin{center}
+  {\LARGE\bfseries 梁泽锋}\\[0.12em]
+  {\small (+86) 195-2299-8848 \quad \href{mailto:zephliang00@gmail.com}{zephliang00@gmail.com} \quad 求职方向：AI Agent 工程师}
+\end{center}
+
+\vspace{0.2em}
+
+% ── 个人总结 ──
+\section{个人总结}
+\noindent\textbf{AI Agent 工程师}，覆盖基础设施、LLM 应用与 Agent Harness 设计三个层面。在字景数科交付了企业级 \textbf{Text-to-SQL Agent} 系统——从模型微调到生产级 Harness 工程（structured error recovery、permission pipeline、context compression、observability）。此前在首都在线设计过大规模异步编排与全链路可观测体系（Prometheus/Kafka/ELK），保障核心服务 99.9\% SLA。
+
+% ── 教育经历 ──
+\section{教育经历}
+\noindent 天津师范大学 \textbar{} 软件工程，学士 \hfill 2018.09 -- 2022.06
+
+% ── 技术能力 ──
+\section{技术能力}
+\begin{itemize}
+  \item \textbf{Agent 架构}：Agent Loop、Tool Calling、Structured Error Recovery（5 类错误分类 + 独立恢复策略）、Permission Pipeline（4 级门控 + 熔断）、Context Compression（3 层：摘要→按需 DDL→对话压缩）、Multi-step Planning（Task Graph + 依赖解析）、Cross-session Memory（4 类型分层 + MEMORY.md 索引）、Hook System（PreToolUse/PostToolUse）、Observability（Trace/Metrics）
+  \item \textbf{LLM 工程}：RAG（FAISS/Milvus）、LoRA 微调（CodeLlama-13B）、Prompt Engineering、Text-to-SQL、Execution Accuracy 分级评估
+  \item \textbf{基础设施}：Python、Go、Prometheus、Kafka、ELK、Kubernetes、Docker、异步任务编排、熔断降级
+  \item \textbf{英语}：\textbf{IELTS} 写作 6.0，阅读 7.0（综合 6.0）
+\end{itemize}
+
+% ── 工作经历 ──
+\section{工作经历}
+
+\entry{杭州字景数科 \textbar{} AI 应用工程师}{2024.05 -- 2025.08}
+\begin{itemize}
+  \item \textbf{Agent Loop \& Structured Error Recovery}：设计并实现 Agent Loop 与 5 类 SQL 错误分类（语法/超时/表不存在/权限拒绝/空结果），每类映射独立恢复策略。工具调用失败率从 $\sim$15\% 降至 $\sim$3\%
+
+  \item \textbf{Permission Pipeline}：实现四级 SQL 权限管道（正则→模式→白名单→用户确认），非 SELECT 默认拒绝，连续 3 次拒绝触发自动熔断
+
+  \item \textbf{Observability \& 数据驱动优化}：建立 Trace/Metrics 两层观测，通过 Metrics 聚合发现 40\% 查询失败源于 Schema 字段歧义，优化后错误率降低 25\%
+
+  \item \textbf{Context Compression}：设计三层上下文压缩（Table Summary→On-demand DDL→History Compaction），50+ 表 prompt 控制在 $\sim$4K token，较纯 RAG 方案减少 60\%
+
+  \item \textbf{Multi-step Planning \& Cross-session Memory}：实现多步规划引擎，复杂查询分解为 3--5 步 SQL Pipeline，失败步骤隔离重试。引入 4 类型分层记忆跨会话复用查询偏好
+
+  \item \textbf{双模型分工 \& Fine-tuning}：通用 LLM 做 Agent 编排 + CodeLlama-13B（Spider + LoRA rank=16）专职 SQL 生成。多表 SQL 准确率 33\%→77\%。RAG Schema Grounding（FAISS）减少字段错配
+\end{itemize}
+
+\entry{北京首都在线 \textbar{} 后端工程师}{2022.05 -- 2024.04}
+\begin{itemize}
+  \item \textbf{Async Orchestration}：将用户云主机配置（实例规格、GPU、云盘、网络、镜像）解析为异步任务链——任务间存在依赖与顺序关系（如先创建实例→后挂载云盘→后绑定 IP），每个 task 独立追踪执行状态，通过 callback handler 串联状态传递与下一步触发，全部 task 完成后更新 event 状态供运维团队查看。覆盖实例全生命周期（创建/启动/关机/重启/销毁/重装/变配）、存储（挂载/卸载/扩容/快照/备份）、网络（IP/安全组/VPC/带宽）、物理机冷热迁移等操作
+
+  \item \textbf{Telemetry \& Logging Infrastructure}：使用 Prometheus + Kafka + ELK 搭建全链路可观测体系，监控所有异步任务执行状态、底层 API 调用延迟与失败率；设计多级告警策略（限频/分级升级/隔离恢复），团队成员无需登录单机即可排查系统事件
+
+  \item \textbf{Fault Isolation \& Recovery}：底层系统为黑盒 API——任务失败时先定界（参数错误/底层不支持/资源不足），参数问题自动修正重试，底层限制则协调对应团队推动解决。担任生产故障首席响应人，保障 99.9\% SLA
+\end{itemize}
+
+% ── 项目经历 ──
+\section{项目经历}
+
+\entry{Text2SQL Agent \textbar{} 字景数科}{2024.05 -- 2025.08}
+\begin{itemize}
+  \item 在 Agent Loop 三个接缝（LLM 调用前/工具执行前/结果返回后）注入策略——权限检查、错误分类、上下文压缩、记忆更新均通过 Hook Pipeline 注册，主循环零修改
+
+  \item 实现 Hook System（PreToolUse/PostToolUse/SessionStart），定义 3 态 exit code 协议（0=继续/1=拦截/2=注入上下文）；实现 3 层 Context Compression（摘要→按需 DDL→对话压缩）+ tiktoken token 预算控制；实现 4 类型分层 Memory + MEMORY.md 索引，SessionStart 自动注入
+
+  \item 实现 Task Graph 规划引擎——依赖图解析（blockedBy/blocks）、步骤并行调度（ThreadPoolExecutor）、失败隔离重试（不重跑已成功步骤）
+\end{itemize}
+
+\vspace{0.3em}
+
+\entry{云基础设施平台 —— 异步编排 \& 全链路可观测 \textbar{} 首都在线}{2022.05 -- 2024.04}
+\begin{itemize}
+  \item \textbf{Async Task Orchestration Engine}：基于 uWSGI spooler 构建异步任务队列——spool 目录文件持久化保证任务不丢，Worker Pool 并发消费，callback handler 串联状态传递，所有子 task 完成后汇总更新 event 状态。调度管线：解析配置→拆解任务链（依赖/顺序）→spool 入队→并发分发→轮询底层 API 状态→汇总 event 结果
+
+  \item \textbf{Monitoring \& Logging Pipeline}：搭建 FELK 日志链路（Filebeat→Logstash→Elasticsearch→Kibana）集中化服务器日志，团队成员无需登录单机即可排查。自研 Prometheus Exporter 暴露业务指标，Kafka 作为指标实时缓冲层（利用更新/删除/commit offset 特性），Prometheus scrape→AlertManager 触发告警；告警策略（限频/分级升级/隔离恢复）在业务层实现。Grafana 性能指标面板与 Kibana 日志面板职责分离
+\end{itemize}
+
+\end{document}

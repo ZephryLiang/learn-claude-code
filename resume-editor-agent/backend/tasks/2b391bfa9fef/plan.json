@@ -1,0 +1,39 @@
+{
+  "steps": [
+    {
+      "id": "1",
+      "name": "gap_analysis",
+      "icon": "🔍",
+      "deps": []
+    },
+    {
+      "id": "2",
+      "name": "assessment",
+      "icon": "📊",
+      "deps": []
+    },
+    {
+      "id": "3",
+      "name": "company_analysis",
+      "icon": "🏢",
+      "deps": []
+    },
+    {
+      "id": "4",
+      "name": "remediation",
+      "icon": "📚",
+      "deps": [
+        "1"
+      ]
+    },
+    {
+      "id": "5",
+      "name": "rewrite",
+      "icon": "✍️",
+      "deps": [
+        "1",
+        "2"
+      ]
+    }
+  ]
+}

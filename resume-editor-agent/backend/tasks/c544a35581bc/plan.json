@@ -1,0 +1,41 @@
+{
+  "steps": [
+    {
+      "id": "gap_analysis",
+      "name": "差距分析",
+      "icon": "📊",
+      "deps": []
+    },
+    {
+      "id": "company_analysis",
+      "name": "公司尽调",
+      "icon": "🏢",
+      "deps": []
+    },
+    {
+      "id": "assessment",
+      "name": "匹配评估",
+      "icon": "🔍",
+      "deps": [
+        "gap_analysis",
+        "company_analysis"
+      ]
+    },
+    {
+      "id": "rewrite",
+      "name": "故事改写",
+      "icon": "✏️",
+      "deps": [
+        "assessment"
+      ]
+    },
+    {
+      "id": "remediation",
+      "name": "补足路线",
+      "icon": "📈",
+      "deps": [
+        "assessment"
+      ]
+    }
+  ]
+}

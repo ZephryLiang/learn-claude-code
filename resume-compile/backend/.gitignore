@@ -1,0 +1,5 @@
+uploads/
+models.json
+.env
+__pycache__/
+*.pyc
